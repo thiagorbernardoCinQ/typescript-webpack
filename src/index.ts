@@ -1,26 +1,28 @@
 import * as _ from 'lodash';
+import { MovieService } from './movie/movie.service';
+import { TemplateService } from './template/templete.service';
 
+const movieService: MovieService = new MovieService();
+const templateService: TemplateService = new TemplateService();
 
 function component() {
-
-	const apiKey = "5d8bf2990a40ee592eee0bd672676d61";
-	let movieId = 181812;
-	let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
-	fetch(apiUrl, { method: "GET" }).then(response =>
-		{
-			console.log(response.status);
-			console.log(response.statusText);
-			console.log(response.type);
-			console.log(response.url);
-			response.json().then(data => console.log(data));
-		}
-	);
-
 	const element = document.createElement('div');
 	element.innerHTML = 'Oi Raquel'
 	return element;
-
-	
 }
 
+function getMovie() {
+	movieService.getMovie(181812)
+		.then(response => {
+			response.json().then((movie: any) => {
+				console.log(movie);
+				const element = document.createElement('div');
+				element.innerHTML = templateService.buildMovieTemplate(movie);
+				document.body.appendChild(element);
+			})
+		});
+
+}
+
+getMovie();
 document.body.appendChild(component());
