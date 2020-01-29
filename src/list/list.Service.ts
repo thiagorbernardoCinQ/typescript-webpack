@@ -16,3 +16,11 @@ export class ListService{
         return `https://api.themoviedb.org/3/movie/now_playing?api_key=${this._appConfig.API_KEY}`;
     }
 }
+
+export interface listResponseInterface{
+    results : Array<any>;
+    page : number ;
+    total_results : number;
+    dates : Array<any>;
+    total_pages : number;
+}

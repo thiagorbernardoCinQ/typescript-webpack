@@ -1,5 +1,20 @@
+import { listResponseInterface } from "../list/list.Service";
+
 export class TemplateService {
 	constructor() {}
+	/*public show(){
+		const element = document.createElement('div');
+		element.innerHTML = this.templateService.buildNowPlayingMovieList(nowPlaying);
+		document.body.appendChild(element);
+	}*/
+	public buildNowPlayingMovieList(nowPlayingMovieList : listResponseInterface): string{
+		let movieList = '<ul>';
+		nowPlayingMovieList.results.forEach((movie: any) => {
+			movieList += `<li> <button onClick="show(${movie})">${movie.title}</button> </li>`;
+		});
+		movieList += '</ul>'
+		return movieList
+	}
 
 	public buildMovieTemplate(movie: any): any {
 		return `

@@ -1,6 +1,7 @@
 import { MovieService } from './movie/movie.service';
 import { TemplateService } from './template/templete.service';
 import { ListService } from './list/list.Service';
+import { listResponseInterface } from './list/list.Service'
 
 export class Main {
 	constructor(
@@ -15,14 +16,16 @@ export class Main {
 
 	public getMoviesNowPlaying(){
 		this.listService.getLatest().then((nowPlaying) => {
-			nowPlaying.json().then((nowPlaying:any) =>{
-				console.log(nowPlaying);
+			nowPlaying.json().then((nowPlaying:listResponseInterface) =>{
+				const element = document.createElement('div');
+				element.innerHTML = this.templateService.buildNowPlayingMovieList(nowPlaying);
+				document.body.appendChild(element);
 			});
 		});
 	}
 
-	public getMovie() {
-		this.movieService.getMovie(181812)
+	public getMovie(id : any) {
+		this.movieService.getMovie(id)
 		.then(response => {
 			response.json().then((movie: any) => {
 				console.log(movie);
