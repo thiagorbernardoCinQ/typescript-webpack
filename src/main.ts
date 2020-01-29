@@ -1,14 +1,24 @@
 import { MovieService } from './movie/movie.service';
 import { TemplateService } from './template/templete.service';
+import { ListService } from './list/list.Service';
 
 export class Main {
 	constructor(
 		private movieService: MovieService,
-		private templateService: TemplateService
+		private templateService: TemplateService,
+		private listService : ListService
 	) {}
 
 	public init() {
-		this.getMovie();
+		this.getMoviesNowPlaying();
+	}
+
+	public getMoviesNowPlaying(){
+		this.listService.getLatest().then((nowPlaying) => {
+			nowPlaying.json().then((nowPlaying:any) =>{
+				console.log(nowPlaying);
+			});
+		});
 	}
 
 	public getMovie() {
